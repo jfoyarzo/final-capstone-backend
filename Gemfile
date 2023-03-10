@@ -53,3 +53,6 @@ gem 'devise'
 
 # serializer for easier communication between backend and frontend
 gem 'jsonapi-serializer'
+
+# gem for cross-domain AJAX calls
+gem 'rack-cors'
