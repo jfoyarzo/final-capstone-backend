@@ -47,3 +47,9 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem 'spring'
 end
+
+# authentication gem
+gem 'devise'
+
+# serializer for easier communication between backend and frontend
+gem 'jsonapi-serializer'
