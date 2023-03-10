@@ -1,5 +1,5 @@
 class InvestigatorsController < ApplicationController
-  before_action :set_investigator, only: [:show, :destroy]
+  before_action :set_investigator, only: %i[show destroy]
   def index
     @investigators = Investigator.all
     render json: @investigators

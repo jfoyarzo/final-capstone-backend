@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  before_action :set_appointment, only: [:show, :edit, :update, :destroy]
+  before_action :set_appointment, only: %i[show edit update destroy]
 
   def index
     @appointments = Appointment.all
@@ -11,7 +11,6 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-
     @appointment = Appointment.new(appointment_params)
     if @appointment.save
       render json: {
