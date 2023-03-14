@@ -1,5 +1,4 @@
 class V1::AppointmentsController < ApplicationController
-  before_action :set_appointment, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   def index
@@ -8,7 +7,12 @@ class V1::AppointmentsController < ApplicationController
   end
 
   def show
-    render json: @appointment
+    if Appointment.exists?(params[:id])
+      set_appointment
+      render json: @appointment
+    else
+      render json: { code: 404, message: 'Appointment not found' }, status: 404
+    end
   end
 
   def create
@@ -26,15 +30,20 @@ class V1::AppointmentsController < ApplicationController
   end
 
   def destroy
-    if @appointment.destroy
-      render json: {
-        status: { code: 200, message: 'Appointment deleted successfully.' },
-        data: AppointmentSerializer.new(@appointment).serializable_hash[:data][:attributes]
-      }, status: :ok
+    if Appointment.exists?(params[:id])
+      set_appointment
+      if @appointment.destroy
+        render json: {
+          status: { code: 200, message: 'Appointment deleted successfully.' },
+          data: AppointmentSerializer.new(@appointment).serializable_hash[:data][:attributes]
+        }, status: :ok
+      else
+        render json: {
+          status: { message: "Appointment could not be deleted. #{@appointment.errors.full_messages.to_sentence}" }
+        }, status: :unprocessable_entity
+      end
     else
-      render json: {
-        status: { message: "Appointment could not be deleted. #{@appointment.errors.full_messages.to_sentence}" }
-      }, status: :unprocessable_entity
+      render json: { code: 404, message: 'Appointment not found' }, status: 404
     end
   end
 

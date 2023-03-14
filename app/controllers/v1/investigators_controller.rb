@@ -1,5 +1,4 @@
 class V1::InvestigatorsController < ApplicationController
-  before_action :set_investigator, only: %i[destroy]
   before_action :authenticate_user!, only: %i[create destroy]
 
   def index
@@ -31,15 +30,20 @@ class V1::InvestigatorsController < ApplicationController
   end
 
   def destroy
-    if @investigator.destroy
-      render json: {
-        status: { code: 200, message: 'Investigator deleted successfully.' },
-        data: InvestigatorSerializer.new(@investigator).serializable_hash[:data][:attributes]
-      }, status: :ok
+    if Investigator.exists?(params[:id])
+      set_investigator
+      if @investigator.destroy
+        render json: {
+          status: { code: 200, message: 'Investigator deleted successfully.' },
+          data: InvestigatorSerializer.new(@investigator).serializable_hash[:data][:attributes]
+        }, status: :ok
+      else
+        render json: {
+          status: { message: "Investigator could not be deleted. #{@investigator.errors.full_messages.to_sentence}" }
+        }, status: 500
+      end
     else
-      render json: {
-        status: { message: "Investigator could not be deleted. #{@investigator.errors.full_messages.to_sentence}" }
-      }, status: :unprocessable_entity
+      render json: { code: 404, message: 'Investigator not found' }, status: 404
     end
   end
 

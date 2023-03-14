@@ -4,15 +4,28 @@ info:
   title: API V1
   version: v1
 paths:
-  "/v1/investigators":
+  "/v1/appointments":
     post:
-      summary: Creates an investigator
+      summary: Creates an appointment
       tags:
-      - Investigators
+      - Appointments
       parameters: []
       responses:
         '201':
-          description: investigator created
+          description: appointment created
+          content:
+            application/json:
+              examples:
+                example_response_create_appointment:
+                  value:
+                    status:
+                      code: 201
+                      message: Appointment created successfully.
+                    data:
+                      user_id: 2
+                      investigator_id: 1
+                      date: '2022-12-12T00:00:00.000Z'
+                      city: Manhattan, NY
         '422':
           description: invalid request
       requestBody:
@@ -21,27 +34,73 @@ paths:
             schema:
               type: object
               properties:
-                name:
-                  type: string
-                photo:
-                  type: string
-                description:
-                  type: string
-                fee:
-                  type: number
-                rating:
-                  type: number
+                appointment:
+                  type: object
+                  properties:
+                    user_id:
+                      type: number
+                    investigator_id:
+                      type: number
+                    date:
+                      type: date
+                    city:
+                      type: string
               required:
-              - name
-              - photo
-              - description
-              - fee
-              - rating
-  "/v1/investigators/{id}":
+              - user_id
+              - investigator_id
+              - date
+              - city
+            examples:
+              request_create_appointment:
+                summary: A request example for creating an appointment
+                value:
+                  appointment:
+                    user_id: 2
+                    investigator_id: 1
+                    date: '2022-12-12'
+                    city: Manhattan
     get:
-      summary: Retrieves an investigator
+      summary: Retrieves all appointments for the logged in user
       tags:
-      - Investigators
+      - Appointments
+      responses:
+        '200':
+          description: appointments found
+          content:
+            application/json:
+              examples:
+                example_response_appointments:
+                  value:
+                  - id: 1
+                    user_id: 2
+                    investigator_id: 1
+                    date: '2022-12-12T00:00:00.000Z'
+                    city: Manhattan, NY
+                  - id: 2
+                    user_id: 1
+                    investigator_id: 3
+                    date: '2022-05-07T00:00:00.000Z'
+                    city: Austin, TX
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    investigator_id:
+                      type: integer
+                    date:
+                      type: string
+                    city:
+                      type: string
+  "/v1/appointments/{id}":
+    get:
+      summary: Retrieves an appointment
+      tags:
+      - Appointments
       parameters:
       - name: id
         in: path
@@ -53,6 +112,212 @@ paths:
           description: id found
           content:
             application/json:
+              examples:
+                example_response_appointments:
+                  value:
+                    id: 1
+                    user_id: 2
+                    investigator_id: 1
+                    date: '2022-12-12T00:00:00.000Z'
+                    city: Manhattan, NY
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  investigator_id:
+                    type: integer
+                  date:
+                    type: date
+                  city:
+                    type: string
+        '404':
+          description: appointment not found
+    delete:
+      summary: Deletes an appointment
+      tags:
+      - Appointments
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: appointment deleted
+          content:
+            application/json:
+              examples:
+                response_on_delete_appointment:
+                  value:
+                    status:
+                      code: 200
+                      message: Appointment deleted successfully.
+                    data:
+                      id: 1
+                      user_id: 2
+                      investigator_id: 1
+                      date: '2022-12-12T00:00:00.000Z'
+                      city: Manhattan, NY
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      user_id:
+                        type: integer
+                      investigator_id:
+                        type: integer
+                      date:
+                        type: date
+                      city:
+                        type: string
+        '404':
+          description: appointment not found
+  "/v1/investigators":
+    post:
+      summary: Creates a private investigator
+      tags:
+      - Private Investigators
+      parameters: []
+      responses:
+        '201':
+          description: investigator created
+          content:
+            application/json:
+              examples:
+                example_response_create_pi:
+                  value:
+                    status:
+                      code: 201
+                      message: Investigator created successfully.
+                    data:
+                      id: 1
+                      name: Investi Gator
+                      photo: http://example.com/avatar.jpg
+                      description: Highly resilient private investigator, has big
+                        mouth and teeth
+                      fee: 69.95
+                      rating: 5
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                investigator:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    photo:
+                      type: string
+                    description:
+                      type: string
+                    fee:
+                      type: number
+                    rating:
+                      type: number
+              required:
+              - name
+              - photo
+              - description
+              - fee
+              - rating
+            examples:
+              request_create_pi:
+                summary: A request example for creating a private investigator
+                value:
+                  investigator:
+                    name: Investi Gator
+                    photo: http://example.com/avatar.jpg
+                    description: Highly resilient private investigator, has big mouth
+                      and teeth
+                    fee: 69.95
+                    rating: 5
+    get:
+      summary: Retrieves all private investigators
+      tags:
+      - Private Investigators
+      responses:
+        '200':
+          description: investigators found
+          content:
+            application/json:
+              examples:
+                example_response:
+                  value:
+                  - id: 1
+                    name: Investi Gator
+                    photo: http://example.com/avatar.jpg
+                    description: Highly resilient private investigator, has big mouth
+                      and teeth
+                    fee: 69.95
+                    rating: 5
+                  - id: 2
+                    name: Investi Goat
+                    photo: http://example.com/avatar2.jpg
+                    description: Very agile private investigator, lovely voice
+                    fee: 99.95
+                    rating: 4
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    photo:
+                      type: string
+                    description:
+                      type: string
+                    fee:
+                      type: string
+                    rating:
+                      type: number
+  "/v1/investigators/{id}":
+    get:
+      summary: Retrieves a private investigator
+      tags:
+      - Private Investigators
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: id found
+          content:
+            application/json:
+              examples:
+                example_response:
+                  value:
+                    id: 1
+                    name: Investi Gator
+                    photo: http://example.com/avatar.jpg
+                    description: Highly resilient private investigator, has big mouth
+                      and teeth
+                    fee: 69.95
+                    rating: 5
               schema:
                 type: object
                 properties:
@@ -65,7 +330,7 @@ paths:
                   description:
                     type: string
                   fee:
-                    type: float
+                    type: string
                   rating:
                     type: number
                 required:
@@ -76,8 +341,206 @@ paths:
                 - rating
         '404':
           description: investigator not found
+    delete:
+      summary: Deletes a private investigator
+      tags:
+      - Private Investigators
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: investigator deleted
+          content:
+            application/json:
+              examples:
+                response_on_delete:
+                  value:
+                    status:
+                      code: 200
+                      message: Investigator deleted successfully.
+                    data:
+                      name: Investi Cat
+                      photo: http://www.example2.com
+                      description: Sample description 2
+                      fee: '5.89'
+                      rating: 4
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      photo:
+                        type: string
+                      description:
+                        type: string
+                      fee:
+                        type: number
+                      rating:
+                        type: integer
+        '404':
+          description: investigator not found
+  "/users":
+    post:
+      summary: Signs up a new user
+      tags:
+      - Authentication
+      parameters: []
+      responses:
+        '201':
+          description: user created
+          content:
+            application/json:
+              examples:
+                example_response_create_user:
+                  value:
+                    status:
+                      code: 200
+                      message: Signed up successfully.
+                    data:
+                      id: 3
+                      name: John Doe
+                      email: jdoe@mail.com
+                      created_at: '2023-03-14T21:48:13.152Z'
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    password:
+                      type: string
+                    password_confirmation:
+                      type: string
+              required:
+              - name
+              - email
+              - password
+            examples:
+              request_signup_user:
+                summary: A request example for signin up a new user
+                value:
+                  user:
+                    name: John Doe
+                    email: jdoe@mail.com
+                    password: Securepass123#
+  "/users/sign_in":
+    post:
+      summary: Logs in a user and creates a new session cookie
+      tags:
+      - Authentication
+      parameters: []
+      responses:
+        '200':
+          description: user found
+          content:
+            application/json:
+              examples:
+                example_response_userlogin:
+                  value:
+                    status:
+                      code: 200
+                      message: Signed in successfully.
+                    data:
+                      id: 3
+                      name: John Doe
+                      email: jdoe@mail.com
+                      created_at: '2023-03-14T21:48:13.152Z'
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    password:
+                      type: string
+              required:
+              - email
+              - password
+            examples:
+              request_signin_user:
+                summary: A request example for logging in a user
+                value:
+                  user:
+                    email: jdoe@mail.com
+                    password: Securepass123#
+  "/users/sign_out":
+    delete:
+      summary: Signs out a user
+      tags:
+      - Authentication
+      responses:
+        '200':
+          description: user signed out
+          content:
+            application/json:
+              examples:
+                response_on_logout:
+                  value:
+                    status:
+                      code: 200
+                      message: Signed out successfully.
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+        '401':
+          description: no signed in user found
+          content:
+            application/json:
+              examples:
+                response_on_failed_logout:
+                  value:
+                    status:
+                      code: 401
+                      message: Could not find a signed in user.
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
 servers:
 - url: https://{defaultHost}
   variables:
     defaultHost:
-      default: www.example.com
+      default: localhost:3001

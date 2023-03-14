@@ -18,13 +18,17 @@ class Users::SessionsController < Devise::SessionsController
     if current_user
       sign_out(@user)
       render json: {
-        status: 200,
-        message: 'Signed out successfully.'
+        status: {
+          code: 200,
+          message: 'Signed out successfully.'
+        }
       }, status: :ok
     else
       render json: {
-        status: 401,
-        message: 'Could not find a signed in user.'
+        status: {
+          code: 401,
+          message: 'Could not find a signed in user.'
+        }
       }, status: :unauthorized
     end
   end
