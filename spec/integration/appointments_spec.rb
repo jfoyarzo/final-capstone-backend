@@ -58,7 +58,7 @@ RSpec.describe 'Appointments API' do
         example 'application/json', :example_response_appointments, [
           {
             id: 1,
-            user_id: 2,
+            user_id: 1,
             investigator_id: 1,
             date: '2022-12-12T00:00:00.000Z',
             city: 'Manhattan, NY'
