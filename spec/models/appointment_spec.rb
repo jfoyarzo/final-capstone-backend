@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Appointment, type: :model do
   subject do
     @user = User.create!(id: 1, name: 'John Doe', email: 'john@doe.com', password: 'Password1#')
-    @investigator = Investigator.create!(id: 1, name: 'Investi Dog', photo: 'https://beautifulphoto.com/photo.jpg', description: 'Dog, P.I. is a dog who solves mysteries.', fee: 99.50, rating: 5)
+    @investigator = Investigator.create!(id: 1, name: 'Investi Dog', photo: 'https://beautifulphoto.com/photo.jpg',
+                                         description: 'Dog, P.I. is a dog who solves mysteries.', fee: 99.50, rating: 5)
     @appointment = Appointment.create!(date: '2023-05-01 12:00', city: 'Manhattan, NY', investigator_id: 1, user_id: 1)
   end
 

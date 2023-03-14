@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Investigator, type: :model do
   subject do
-    @investigator = Investigator.create!(name: 'Investi Dog', photo: 'https://beautifulphoto.com/photo.jpg', description: 'Dog, P.I. is a dog who solves mysteries.', fee: 99.50, rating: 5)
+    @investigator = Investigator.create!(name: 'Investi Dog', photo: 'https://beautifulphoto.com/photo.jpg',
+                                         description: 'Dog, P.I. is a dog who solves mysteries.', fee: 99.50, rating: 5)
   end
 
   before { subject.save }

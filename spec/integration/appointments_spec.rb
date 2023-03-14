@@ -15,7 +15,6 @@ RSpec.describe 'Appointments API' do
       }
 
       response '201', 'appointment created' do
-        
         let(:appointment) { { user_id: 1, investigator_id: 1, date: '2023-05-05 12:00', city: 'Manhattan, NY' } }
         run_test!
       end
@@ -42,7 +41,10 @@ RSpec.describe 'Appointments API' do
                },
                required: %w[date city]
 
-        let(:id) { Appointment.create(user_id: 1, investigator_id: 1, date: '2023-05-05 12:00', city: 'Manhattan, NY').id }
+        let(:id) do
+          Appointment.create(user_id: 1, investigator_id: 1,
+                             date: '2023-05-05 12:00', city: 'Manhattan, NY').id
+        end
         run_test!
       end
 

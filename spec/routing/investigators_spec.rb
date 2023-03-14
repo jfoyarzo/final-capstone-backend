@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'routes for Investigators', type: :routing do
   before(:each) do
-    @investigator = Investigator.create!(id: 1, name: 'Investi Doe', photo: 'https://photos.com/photo1.jpg', description: 'Once a doe, always a doetective', fee: 45.99, rating: 4)
+    @investigator = Investigator.create!(id: 1, name: 'Investi Doe', photo: 'https://photos.com/photo1.jpg',
+                                         description: 'Once a doe, always a doetective', fee: 45.99, rating: 4)
   end
 
   it 'routes /investigators to the investigators controller index method' do
@@ -23,7 +24,7 @@ RSpec.describe 'routes for Investigators', type: :routing do
     expect(get: "/v1/investigators/#{@investigator.id}").to route_to(
       controller: 'v1/investigators',
       action: 'show',
-      id: "#{@investigator.id}"
+      id: @investigator.id.to_s
     )
   end
 
@@ -31,7 +32,7 @@ RSpec.describe 'routes for Investigators', type: :routing do
     expect(delete: "/v1/investigators/#{@investigator.id}").to route_to(
       controller: 'v1/investigators',
       action: 'destroy',
-      id: "#{@investigator.id}"
+      id: @investigator.id.to_s
     )
   end
 end
