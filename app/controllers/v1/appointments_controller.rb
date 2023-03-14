@@ -1,8 +1,9 @@
-class AppointmentsController < ApplicationController
+class V1::AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[show edit update destroy]
+  before_action :authenticate_user!
 
   def index
-    @appointments = Appointment.all
+    @appointments = current_user.appointments
     render json: @appointments
   end
 
@@ -16,7 +17,7 @@ class AppointmentsController < ApplicationController
       render json: {
         status: { code: 201, message: 'Appointment created successfully.' },
         data: AppointmentSerializer.new(@appointment).serializable_hash[:data][:attributes]
-      }
+      }, status: 201
     else
       render json: {
         status: { message: "Appointment could not be created. #{@appointment.errors.full_messages.to_sentence}" }
@@ -27,9 +28,9 @@ class AppointmentsController < ApplicationController
   def destroy
     if @appointment.destroy
       render json: {
-        status: { code: 204, message: 'Appointment deleted successfully.' },
+        status: { code: 200, message: 'Appointment deleted successfully.' },
         data: AppointmentSerializer.new(@appointment).serializable_hash[:data][:attributes]
-      }
+      }, status: :ok
     else
       render json: {
         status: { message: "Appointment could not be deleted. #{@appointment.errors.full_messages.to_sentence}" }

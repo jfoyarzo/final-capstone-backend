@@ -1,12 +1,19 @@
-class InvestigatorsController < ApplicationController
-  before_action :set_investigator, only: %i[show destroy]
+class V1::InvestigatorsController < ApplicationController
+  before_action :set_investigator, only: %i[destroy]
+  before_action :authenticate_user!, only: %i[create destroy]
+
   def index
     @investigators = Investigator.all
     render json: @investigators
   end
 
   def show
-    render json: @investigator
+    if Investigator.exists?(params[:id])
+      set_investigator
+      render json: @investigator
+    else
+      render json: { code: 404, message: 'Investigator not found' }, status: 404
+    end
   end
 
   def create
@@ -15,7 +22,7 @@ class InvestigatorsController < ApplicationController
       render json: {
         status: { code: 201, message: 'Investigator created successfully.' },
         data: InvestigatorSerializer.new(@investigator).serializable_hash[:data][:attributes]
-      }
+      }, status: 201
     else
       render json: {
         status: { message: "Investigator could not be created. #{@investigator.errors.full_messages.to_sentence}" }
@@ -26,9 +33,9 @@ class InvestigatorsController < ApplicationController
   def destroy
     if @investigator.destroy
       render json: {
-        status: { code: 204, message: 'Investigator deleted successfully.' },
+        status: { code: 200, message: 'Investigator deleted successfully.' },
         data: InvestigatorSerializer.new(@investigator).serializable_hash[:data][:attributes]
-      }
+      }, status: :ok
     else
       render json: {
         status: { message: "Investigator could not be deleted. #{@investigator.errors.full_messages.to_sentence}" }
