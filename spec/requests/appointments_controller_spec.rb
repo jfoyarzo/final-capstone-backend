@@ -24,7 +24,6 @@ RSpec.describe V1::AppointmentsController, type: :request do
     end
   end
 
-
   describe 'POST #create' do
     it 'returns http success' do
       post '/v1/appointments',
