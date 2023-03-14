@@ -1,4 +1,4 @@
 class InvestigatorSerializer
   include JSONAPI::Serializer
-  attributes :name, :photo, :description, :fee, :rating
+  attributes :id, :name, :photo, :description, :fee, :rating
 end
