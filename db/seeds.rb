@@ -16,7 +16,7 @@ User.create!([
     name: 'John Doe',
     email: 'jdoe@mail.com',
     admin: true,
-    password: 'Password123@'
+    password: 'Password123#'
   },
   {
     name: 'Jack Doe',
@@ -26,7 +26,7 @@ User.create!([
   {
     name: 'Jack Black',
     email: 'blackj@mail.com',
-    password: 'Password123Ł'
+    password: 'Password123#'
   }
 ])
 
