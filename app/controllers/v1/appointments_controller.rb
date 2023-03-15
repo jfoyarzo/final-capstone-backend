@@ -16,7 +16,7 @@ class V1::AppointmentsController < ApplicationController
   end
 
   def create
-    @appointment = Appointment.new(appointment_params)
+    @appointment = current_user.appointments.new(appointment_params)
     if @appointment.save
       render json: {
         status: { code: 201, message: 'Appointment created successfully.' },
@@ -54,6 +54,6 @@ class V1::AppointmentsController < ApplicationController
   end
 
   def appointment_params
-    params.require(:appointment).permit(:user_id, :investigator_id, :date, :city)
+    params.require(:appointment).permit(:investigator_id, :date, :city)
   end
 end
