@@ -77,7 +77,7 @@ paths:
                     date: '2022-12-12T00:00:00.000Z'
                     city: Manhattan, NY
                   - id: 2
-                    user_id: 1
+                    user_id: 2
                     investigator_id: 3
                     date: '2022-05-07T00:00:00.000Z'
                     city: Austin, TX
