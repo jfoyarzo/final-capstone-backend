@@ -36,21 +36,21 @@ Investigator.create!([
   {
     name: 'Investi Gator',
     photo: 'https://example.com/photo1.jpg',
-    derscription: 'A true and mighty investigator, with a big mouth and a lot of teeth',
+    description: 'A true and mighty investigator, with a big mouth and a lot of teeth',
     fee: 69.69,
     rating: 5
   },
   {
     name: 'Investi Cat',
     photo: 'https://example.com/photo2.jpg',
-    derscription: 'Small and cute, but with a big heart and a big appetite. Mainly for fish.',
+    description: 'Small and cute, but with a big heart and a big appetite. Mainly for fish.',
     fee: 45.66,
     rating: 4
   },
   {
     name: 'Investi Dog',
     photo: 'https://example.com/photo3.jpg',
-    derscription: 'With his tail wagging, he will sniff out the truth for you.',
+    description: 'With his tail wagging, he will sniff out the truth for you.',
     fee: 53.98,
     rating: 5
   }
