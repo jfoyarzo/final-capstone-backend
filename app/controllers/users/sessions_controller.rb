@@ -1,7 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   respond_to :json
   skip_before_action :verify_signed_out_user, only: :destroy
-  before_action :add_header, only: :create
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -48,9 +47,5 @@ class Users::SessionsController < Devise::SessionsController
       status: { code: 200, message: 'Signed in successfully.' },
       data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
     }, status: :ok
-  end
-
-  def add_header
-    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
   end
 end
