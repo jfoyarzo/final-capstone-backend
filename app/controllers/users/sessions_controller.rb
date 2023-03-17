@@ -1,6 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
   respond_to :json
   skip_before_action :verify_signed_out_user, only: :destroy
+  after_action :add_headers
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -42,8 +43,11 @@ class Users::SessionsController < Devise::SessionsController
 
   private
 
-  def respond_with(resource, _opts = {})
+  def add_headers
     response.set_header('Access-Control-Allow-Credentials', 'true')
+  end
+
+  def respond_with(resource, _opts = {})
     render json: {
       status: { code: 200, message: 'Signed in successfully.' },
       data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
