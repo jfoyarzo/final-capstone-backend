@@ -12,7 +12,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     resource '*',
              credentials: true,
              headers: :any,
-             expose: ['Access-Control-Allow-Origin'],
+             expose: ['Set-Cookie'],
              methods: %i[get post put patch delete options head]
   end
 end
