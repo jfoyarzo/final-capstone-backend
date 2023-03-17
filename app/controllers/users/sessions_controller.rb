@@ -51,6 +51,6 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def add_header
-    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+    response.headers['Access-Control-Allow-Origin'] = ''
   end
 end
