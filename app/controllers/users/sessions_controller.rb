@@ -43,6 +43,7 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def respond_with(resource, _opts = {})
+    response.set_header('Access-Control-Allow-Credentials', 'true')
     render json: {
       status: { code: 200, message: 'Signed in successfully.' },
       data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
