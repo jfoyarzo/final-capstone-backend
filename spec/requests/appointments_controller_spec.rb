@@ -12,21 +12,21 @@ RSpec.describe V1::AppointmentsController, type: :request do
 
   describe 'GET #index' do
     it 'returns http success' do
-      get '/v1/appointments'
+      get 'https://p-i-api.onrender.com/v1/appointments'
       expect(response).to have_http_status(:success)
     end
   end
 
   describe 'GET #show' do
     it 'returns http success' do
-      get "/v1/appointments/#{@appointment.id}"
+      get "https://p-i-api.onrender.com//v1/appointments/#{@appointment.id}"
       expect(response).to have_http_status(:success)
     end
   end
 
   describe 'POST #create' do
     it 'returns http success' do
-      post '/v1/appointments',
+      post 'https://p-i-api.onrender.com//v1/appointments',
            params: { appointment: { user_id: 2, investigator_id: 1, date: '2024-01-01 12:00', city: 'New York, NY' } }
       expect(response).to have_http_status(:success)
     end
@@ -34,7 +34,7 @@ RSpec.describe V1::AppointmentsController, type: :request do
 
   describe 'DELETE #destroy' do
     it 'returns http success' do
-      delete '/v1/appointments/1'
+      delete 'https://p-i-api.onrender.com//v1/appointments/1'
       expect(response).to have_http_status(:success)
     end
   end
