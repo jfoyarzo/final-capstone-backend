@@ -36,12 +36,12 @@ module FinalCapstoneBackend
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    config.session_store :cookie_store, key: '_interslice_session'
     config.middleware.use ActionDispatch::Cookies
-    # config.middleware.use config.session_store, config.session_options
-    config.session_store :cookie_store, key: '_interslice_session', domain: :all, same_site: :none, secure: true
+    config.middleware.use config.session_store, config.session_options
     config.action_dispatch.cookies_same_site_protection = :none
     config.force_ssl = true
 
-    Rails.application.config.hosts << 'p-i-api.onrender.com'
+    config.hosts << 'p-i-api.onrender.com'
   end
 end
