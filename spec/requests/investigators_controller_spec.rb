@@ -9,14 +9,14 @@ RSpec.describe V1::InvestigatorsController, type: :request do
 
   describe 'GET #index' do
     it 'returns http success' do
-      get 'https://p-i-api.onrender.com//v1/investigators'
+      get '/v1/investigators'
       expect(response).to have_http_status(:success)
     end
   end
 
   describe 'GET #show' do
     it 'returns http success' do
-      get "https://p-i-api.onrender.com//v1/investigators/#{@investigator.id}"
+      get "/v1/investigators/#{@investigator.id}"
       expect(response).to have_http_status(:success)
     end
   end
@@ -24,7 +24,7 @@ RSpec.describe V1::InvestigatorsController, type: :request do
   describe 'POST #create' do
     it 'returns http success' do
       sign_in @user
-      post 'https://p-i-api.onrender.com//v1/investigators', params: { investigator: { name: 'Investi Doe', photo: 'https://photos.com/photo1.jpg', description: 'Once a doe, always a doetective', fee: 45.99, rating: 4 } }
+      post '/v1/investigators', params: { investigator: { name: 'Investi Doe', photo: 'https://photos.com/photo1.jpg', description: 'Once a doe, always a doetective', fee: 45.99, rating: 4 } }
       expect(response).to have_http_status(:success)
     end
   end
@@ -32,7 +32,7 @@ RSpec.describe V1::InvestigatorsController, type: :request do
   describe 'DELETE #destroy' do
     it 'returns http success' do
       sign_in @user
-      delete 'https://p-i-api.onrender.com//v1/investigators/1'
+      delete '/v1/investigators/1'
       expect(response).to have_http_status(:success)
     end
   end
