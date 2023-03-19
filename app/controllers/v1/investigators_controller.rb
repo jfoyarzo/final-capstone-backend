@@ -1,5 +1,5 @@
 class V1::InvestigatorsController < ApplicationController
-  # before_action :authenticate_user!, only: %i[create destroy]
+  before_action :authenticate_user!, only: %i[create destroy]
 
   def index
     @investigators = Investigator.all
