@@ -77,7 +77,7 @@ Investigator.create!([
   },
   {
     name: 'Investi Raptor',
-    photo: 'hhttps://cdn.pixabay.com/photo/2021/02/21/18/05/cat-6037355_1280.png',
+    photo: 'https://cdn.pixabay.com/photo/2021/02/21/18/05/cat-6037355_1280.png',
     description: 'A raptor who will hunt you down until you tell the truth.',
     fee: 38.99,
     rating: 5
