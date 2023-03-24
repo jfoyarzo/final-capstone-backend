@@ -25,9 +25,6 @@ development:
   <<: *default
   database: final_capstone_backend_development
 
-  username: <%= ENV['psql_user'] %>
-  password: <%= ENV['psql_pass'] %>
-
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -62,8 +59,6 @@ test:
   <<: *default
   database: final_capstone_backend_test
 
-  username: <%= ENV['psql_user'] %>
-  password: <%= ENV['psql_pass'] %>
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -86,4 +81,6 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  database: final_capstone_backend_production
+  username: final_capstone_backend
+  password: <%= ENV["FINAL_CAPSTONE_BACKEND_DATABASE_PASSWORD"] %>
