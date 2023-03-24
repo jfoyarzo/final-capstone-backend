@@ -95,9 +95,6 @@ Clone this repository to your desired folder:
 ```
   git clone https://github.com/MattGomb/budget-app-rails.git
   cd Budget-App-rails
-  bundle install
-  rails db:create
-  rails db:migrate
 ```
 
 ### Install
@@ -105,9 +102,6 @@ Install this project with:
 
 ```sh
   bundle install
-```
-```sh
-  npm install
 ```
 
 Create Database 
@@ -138,7 +132,9 @@ To run tests, run the following command:
 ```sh
 rails db:migrate RAILS_ENV=test
 
-rspec
+rspec ./spec/models
+rspec ./spec/requests
+rspec ./spec/routing
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -150,7 +146,7 @@ rspec
 - GitHub: [@jfoyarzo](https://github.com/jfoyarzo)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/jorge-felipe-oyarzo-contreras)
 
-**👨‍💻Mátyás Gombos**
+**👨‍💻 Mátyás Gombos**
 
 - GitHub: [@MattGomb](https://github.com/MattGomb)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/gombos-matyas/)
